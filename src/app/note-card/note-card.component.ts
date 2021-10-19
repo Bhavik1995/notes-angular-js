@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Output, Renderer2, ViewChild, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-note-card',
@@ -9,6 +9,9 @@ export class NoteCardComponent implements OnInit {
 
   @Input() title: string;
   @Input() body: string;
+  @Input() link: string;
+
+  @Output('delete') deleteEvent: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('trunCator',{static: true}) trunCator: ElementRef<HTMLElement>;
   @ViewChild('bodyText',{static: true}) bodyText: ElementRef<HTMLElement>;
@@ -29,6 +32,10 @@ export class NoteCardComponent implements OnInit {
       //else (there is a text condition), hide the fade out truncator
       this.renderer.setStyle(this.trunCator.nativeElement, 'display','none');
     }
+  }
+
+  onXbutton(){
+      this.deleteEvent.emit();
   }
 
     
